@@ -792,3 +792,39 @@ def read_wldeblend_cat(
                 mask = mask & (cat[nn] <= ul)
         cat = cat[mask]
     return cat
+
+class ClusterGalaxyCatalog(object):
+    """
+    Catalog of galaxies from wldeblend
+
+    Parameters
+    ----------
+    rng: np.random.RandomState
+        The random number generator
+    layout: str|Layout, optional
+    coadd_dim: int, optional
+        Dimensions of the coadd
+    buff: int, optional
+        Buffer region with no objects, on all sides of image.  Ingored
+        for layout 'grid'.  Default 0.
+    pixel_scale: float, optional
+        pixel scale
+    select_observable: list[str] | str
+        A list of observables to apply selection
+    select_lower_limit: list | ndarray
+        lower limits of the slection cuts
+    select_upper_limit: list | ndarray
+        upper limits of the slection cuts
+    """
+    def __init__(
+        self,
+        *,
+        layout="cluster",
+        coadd_dim=None,
+        buff=None,
+        pixel_scale=SCALE,
+    ):
+        self.gal_type="cluster"
+        self.rng=rng
+
+        if is
