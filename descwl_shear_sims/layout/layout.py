@@ -45,7 +45,7 @@ class Layout(object):
             # in a square
             if (coadd_dim - 2*buff) < 2:
                 warnings.warn("dim - 2*buff <= 2, force it to 2.")
-                self.area = (2**pixel_scale/60)**2.  # [arcmin^2]
+                self.area = (2*pixel_scale/60)**2.  # [arcmin^2]
             else:
                 # [arcmin^2]
                 self.area = ((coadd_dim - 2*buff)*pixel_scale/60)**2
@@ -59,6 +59,9 @@ class Layout(object):
             else:
                 radius = (coadd_dim/2. - buff)*pixel_scale/60
                 self.area = np.pi*radius**2  # [arcmin^2]
+        elif layout_name == "cluster":
+            if (coadd_dim - 2*buff) < 2:
+            warnings.warn("dim - 2*buff <= 2, force it to 2.")
         elif layout_name == "hex":
             self.area = 0
         elif layout_name == "grid":
