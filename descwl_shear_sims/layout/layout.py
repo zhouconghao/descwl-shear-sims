@@ -30,7 +30,7 @@ class Layout(object):
         Parameters
         ----------
         layout_name: string
-            'grid', 'pair', 'hex', or 'random'
+            'grid', 'pair', 'hex', 'random_disk', or 'random'
         coadd_dim: int
             Dimensions of final coadd
         buff: int, optional
