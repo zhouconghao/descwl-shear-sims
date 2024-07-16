@@ -827,4 +827,13 @@ class ClusterGalaxyCatalog(object):
         self.gal_type="cluster"
         self.rng=rng
 
-        if is
+        if isinstance(layout, str):
+            self.layout = Layout(layout, coadd_dim, buff, pixel_scale)
+        else:
+            assert isinstance(layout, Layout)
+            self.layout = layout
+        self.shifts_array = self.layout.get_shifts(
+            rng=rng, #not sure if we need this 
+        )
+        
+        
