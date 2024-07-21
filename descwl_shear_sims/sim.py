@@ -77,6 +77,7 @@ def make_sim(
     g1=None,
     g2=None,
     coadd_dim=None,
+    fix_se_wcs=None
 ):
     """
     Make simulation data
@@ -161,7 +162,7 @@ def make_sim(
         survey_name=survey_name,
     ).pixel_scale
 
-    if hasattr(galaxy_catalog.layout, "wcs") and hasattr(galaxy_catalog.layout, "bbox"):
+    if hasattr(galaxy_catalog.layout, "wcs")  and hasattr(galaxy_catalog.layout, "bbox"):
         coadd_wcs = galaxy_catalog.layout.wcs
         coadd_bbox = galaxy_catalog.layout.bbox
     else:
@@ -252,6 +253,7 @@ def make_sim(
                 theta0=theta0,
                 pixel_scale=pixel_scale,
                 calib_mag_zero=calib_mag_zero,
+                fix_se_wcs=fix_se_wcs,
             )
             if epoch == 0:
                 bright_info += this_bright_info
@@ -328,6 +330,7 @@ def make_exp(
     theta0=0.0,
     pixel_scale=SCALE,
     calib_mag_zero=ZERO_POINT,
+    fix_se_wcs=None
 ):
     """
     Make an SEObs
@@ -425,13 +428,21 @@ def make_exp(
     else:
         theta = None
 
+    print("coadd_bbox_cen_gs_skypos", coadd_bbox_cen_gs_skypos)
+
     # galsim wcs
-    se_wcs = make_wcs(
-        scale=pixel_scale,
-        theta=theta,
-        image_origin=se_origin,
-        world_origin=coadd_bbox_cen_gs_skypos,
-    )
+    if fix_se_wcs is None:
+        se_wcs = make_wcs(
+            scale=pixel_scale,
+            theta=theta,
+            image_origin=se_origin,
+            world_origin=coadd_bbox_cen_gs_skypos,
+        )
+    else:
+        print(pixel_scale)
+        print(se_origin)
+        print(coadd_bbox_cen_gs_skypos)
+        se_wcs = fix_se_wcs
 
     image = galsim.Image(dim, dim, wcs=se_wcs)
 
