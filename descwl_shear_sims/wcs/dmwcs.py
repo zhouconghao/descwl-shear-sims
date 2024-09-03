@@ -95,11 +95,13 @@ def make_coadd_dm_wcs(coadd_dim, pixel_scale=SCALE):
     coadd_bbox = Box2I(Point2I(xoff, yoff), Extent2I(coadd_dim))
 
     # center the coadd wcs in the bigger coord system
-    coadd_origin = big_coadd_bbox.getCenter()
+    coadd_origin = big_coadd_bbox.getCenter() 
 
+    import numpy as np
+        
     gs_coadd_origin = galsim.PositionD(
-        x=coadd_origin.x + 1,
-        y=coadd_origin.y + 1,
+        x=np.floor(coadd_origin.x) + 1,
+        y=np.floor(coadd_origin.y) + 1,
     )
     coadd_wcs = make_dm_wcs(
         make_wcs(
