@@ -80,6 +80,7 @@ def make_sim(
     coadd_dim=None,
     simple_coadd_bbox=False,
     draw_noise=True,
+    se_wcs_offset=0.0,
 ):
     """
     Make simulation data
@@ -280,6 +281,7 @@ def make_sim(
                 draw_noise=draw_noise,
                 indexes=lists["indexes"],
                 simple_coadd_bbox=simple_coadd_bbox,
+                se_wcs_offset=se_wcs_offset,
             )
             if epoch == 0:
                 bright_info += this_bright_info
@@ -361,6 +363,7 @@ def make_exp(
     draw_noise=True,
     indexes=None,
     simple_coadd_bbox=False,
+    se_wcs_offset=0,
 ):
     """
     Make an SEObs
@@ -468,11 +471,17 @@ def make_exp(
     # if simple coadd bbox, force the SE WCS to share the same
     # world origin as the coadd WCS
     if simple_coadd_bbox:
+        
+        origin_shift_arcsec = se_wcs_offset * galsim.arcsec * pixel_scale
+        shifted_ra = WORLD_ORIGIN.ra + origin_shift_arcsec
+        shifted_dec = WORLD_ORIGIN.dec
+        shifted_origin = galsim.CelestialCoord(ra=shifted_ra, dec=shifted_dec)
+
         se_wcs = make_wcs(
             scale=pixel_scale,
             theta=theta,
             image_origin=se_origin,
-            world_origin=WORLD_ORIGIN,
+            world_origin=shifted_origin
         )
     else:
         se_wcs = make_wcs(
