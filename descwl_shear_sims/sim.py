@@ -411,6 +411,7 @@ def make_exp(
     # Galsim uses 1 offset. An array with length =dim=5
     # The center is at 3=(5+1)/2
     cen = (np.array(dims) + 1) / 2
+    # se_origin = galsim.PositionD(x=np.floor(cen[1]), y=np.floor(cen[0]))
     se_origin = galsim.PositionD(x=cen[1], y=cen[0])
     if coadd_bbox_cen_gs_skypos is None:
         coadd_bbox_cen_gs_skypos = WORLD_ORIGIN
@@ -430,7 +431,7 @@ def make_exp(
         scale=pixel_scale,
         theta=theta,
         image_origin=se_origin,
-        world_origin=coadd_bbox_cen_gs_skypos,
+        world_origin=WORLD_ORIGIN,
     )
 
     image = galsim.Image(dim, dim, wcs=se_wcs)

@@ -100,9 +100,18 @@ def make_coadd_dm_wcs(coadd_dim, pixel_scale=SCALE):
     import numpy as np
         
     gs_coadd_origin = galsim.PositionD(
-        x=np.floor(coadd_origin.x) + 1,
-        y=np.floor(coadd_origin.y) + 1,
+        x=coadd_origin.x + 1,
+        y=coadd_origin.y + 1,
     )
+    # round the coadd origin
+
+    # gs_coadd_origin = galsim.PositionD(
+    #     x=np.floor(coadd_origin.x) + 1,
+    #     y=np.floor(coadd_origin.y) + 1,
+    # )
+    
+    print(gs_coadd_origin)
+
     coadd_wcs = make_dm_wcs(
         make_wcs(
             scale=pixel_scale,
