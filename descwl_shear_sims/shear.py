@@ -189,8 +189,7 @@ class ShearHalo(object):
 
             if g1**2.0 + g2**2.0 > 0.95:
                 return _get_shear_res_dict(gso, prelensed_shift,
-                                           prelensed_shift, gamma1, gamma2,
-                                           kappa)
+                                           gamma1, gamma2, kappa)
 
             dra, ddec = self.lens.alpha(r.x, r.y, kwargs)
             gso = gso.lens(g1=g1, g2=g2, mu=mu)
