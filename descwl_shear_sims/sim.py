@@ -474,7 +474,7 @@ def make_exp(
         
         origin_shift_arcsec = se_wcs_offset * galsim.arcsec * pixel_scale
         shifted_ra = WORLD_ORIGIN.ra + origin_shift_arcsec
-        shifted_dec = WORLD_ORIGIN.dec
+        shifted_dec = WORLD_ORIGIN.dec + origin_shift_arcsec
         shifted_origin = galsim.CelestialCoord(ra=shifted_ra, dec=shifted_dec)
 
         se_wcs = make_wcs(
