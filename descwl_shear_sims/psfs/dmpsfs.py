@@ -145,7 +145,7 @@ class FixedDMPSF(ImagePsf):
         x = image_pos.getX()
         y = image_pos.getY()
 
-        gs_pos = galsim.PositionD(x=x, y=y)
+        gs_pos = galsim.PositionD(x=x + 1, y=y + 1)
         gspsf = self._get_gspsf(gs_pos)
 
         gsimage = gspsf.drawImage(
