@@ -606,6 +606,7 @@ def make_exp(
         psf_dim=psf_dim,
         wcs=se_wcs,
         draw_method=draw_method if draw_method != 'phot' else 'auto',
+        im_dtype=im_dtype,
     )
 
     variance = image.copy()
